@@ -1,0 +1,19 @@
+language: python
+
+python:
+    - "3.6"
+
+services: mongodb
+    
+install:
+    pip install -r requirements.txt
+    
+script:
+    - python -m unittest -v kassir/repository/kassir_repository_test.py
+    - python -m unittest -v kassir/rest_api/kassir_resource_cov_test.py
+    - python -m unittest -v mag/repository/mag_repository_test.py
+    - python -m unittest -v mag/rest_api/mag_resource_cov_test.py
+    - python -m unittest -v prod/repository/prod_repository_test.py
+    - python -m unittest -v prod/rest_api/prod_resource_cov_test.py
+    - python -m unittest -v user/repository/user_repository_test.py
+    - python -m unittest -v user/rest_api/user_resource_cov_test.py
