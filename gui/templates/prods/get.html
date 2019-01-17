@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}Информация о товаре{% endblock %}
+{% block body %}
+    <form action="" method="post">
+        <p>
+            <input type=text placeholder="Идентификатор" name=prod_id value="{{ request.form.prod_id }}">
+        </p>
+        <p>
+            <input type="submit" value="Найти">
+        </p>
+        {% if prod_found %}
+            <table>
+            <tr>
+                <th> Идентификатор товара </th>
+                <td> {{ prod["prod_id"] }}</td>
+            </tr>
+            <tr>
+                <th> Идентификатор магазина </th>
+                <td> {{ prod["mag_id"] }}</td>
+            </tr>
+            <tr>
+                <th> Номер ячейки </th>
+                <td> {{ prod["seat_number"] }}</td>
+            </tr>
+            </table>
+        {% endif %}
+    </form>
+{% endblock %}

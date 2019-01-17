@@ -1,7 +1,7 @@
-from kassir import app
+
 from flask_restful import Api
 from mag.rest_api.mag_resource import *
-from kassir.repository.kassir_repository import Kassirs
+
 
 
 api = Api(app)

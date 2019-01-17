@@ -10,6 +10,8 @@ service_namespace = "/users"
 api.add_resource(UserListResource, "/users")
 api.add_resource(UserResource, "/users/<user_id>")
 api.add_resource(UserCreateResource, "/users/create")
+api.add_resource(UserAuthorizationResource, "/users/auth/token")
+api.add_resource(UserTokenResource, "/users/token")
 
 
 if __name__ == '__main__':

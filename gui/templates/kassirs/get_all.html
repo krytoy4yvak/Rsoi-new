@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}Информация о кассирах{% endblock %}
+{% block body %}
+    <form action="" method="get">
+            {% for item in kassirs %}
+                <table>
+                <tr>
+                    <th> Идентификатор </th>
+                    <td> {{ item["kassir_id"] }}</td>
+                </tr>
+                <tr>
+                    <th> Имя </th>
+                    <td> {{ item["name"] }}</td>
+                </tr>
+                <tr>
+                    <th> Ранг </th>
+                    <td> {{ item["stage"] }}</td>
+                </tr>
+                <tr>
+                    <th> Стаж </th>
+                    <td> {{ item["year"] }}</td>
+                </tr>
+                </table>
+                <a href="{{ url_for('mags.create', kassir_id=item["kassir_id"]) }}">Создать витрину</a>
+                <a href="{{ url_for('kassirs.delete', kassir_id=item["kassir_id"] )}}">Уволить кассира</a>
+            {% endfor %}
+            <p></p>
+            {% if prev_url %}
+                <a href="{{ url_for('kassirs.get_all', page=prev_page) }}">Предыдущие кассиры</a>
+            {% endif %}
+            {% if next_url %}
+                <a href="{{ url_for('kassirs.get_all', page=next_page) }}" >Следующие кассиры</a>
+            {% endif %}
+    </form>
+{% endblock %}

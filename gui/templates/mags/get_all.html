@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block title %}Информация о магазинах{% endblock %}
+{% block body %}
+    <form action="" method="get">
+            {% for item in mags %}
+                <table>
+                <tr>
+                    <th> Идентификатор магазина </th>
+                    <td> {{ item["mag_id"] }}</td>
+                </tr>
+                <tr>
+                    <th> Идентификатор кассира </th>
+                    <td> {{ item["kassir_id"] }}</td>
+                </tr>
+                <tr>
+                    <th> Общее число ячеек </th>
+                    <td> {{ item["number_of_seats"] }}</td>
+                </tr>
+                <tr>
+                    <th> Число свободных ячеек </th>
+                    <td> {{ item["number_of_free_seats"] }}</td>
+                </tr>
+                <tr>
+                    <th> Дата</th>
+                    <td> {{ item["date"] }}</td>
+                </tr>
+                <tr>
+                    <th> Время </th>
+                    <td> {{ item["time"] }}</td>
+                </tr>
+                </table>
+                <a href="{{ url_for('mags.get', mag_id=item["mag_id"]) }}">Посмотреть магазин</a>
+                <!--<a href="{{ url_for('mags.create', kassir_id=item["kassir_id"]) }}">Создать витрину</a>-->
+            {% endfor %}
+            <p></p>
+            {% if prev_url %}
+                <a href="{{ url_for('mags.get_all', page=prev_page) }}">Предыдущие магазины</a>
+            {% endif %}
+            {% if next_url %}
+                <a href="{{ url_for('mags.get_all', page=next_page) }}" >Следующие магазины</a>
+            {% endif %}
+    </form>
+{% endblock %}

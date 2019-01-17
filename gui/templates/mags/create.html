@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block title %}Добавить магазин{% endblock %}
+{% block body %}
+  <form action="" method=post>
+    <p>
+      <h4 >Идентификатор кассира: {{ kassir_id }}</h4>
+    <p>
+    <input type=text placeholder="Количество товара" name=number_of_seats value="{{ request.form.number_of_seats }}">
+    <p>
+    <input type=text placeholder="Дата " name=date value="{{ request.form.date }}">
+    <p>
+    <input type=text placeholder="Время " name=time value="{{ request.form.time }}">
+    <p>
+    <input type=submit value=Ok>
+    <p>
+  </form>
+{% endblock %}

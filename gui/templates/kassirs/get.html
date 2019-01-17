@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}Информация о кассире{% endblock %}
+{% block body %}
+    <form action="" method="post">
+        <p>
+            <input type=text placeholder="Идентификатор" name=kassir_id value="{{ request.form.kassir_id }}">
+        </p>
+        <p>
+            <input type="submit" value="Найти">
+        </p>
+        {% if kassir_found %}
+            <table>
+            <tr>
+                <th> Идентификатор </th>
+                <td> {{ kassir["kassir_id"] }}</td>
+            </tr>
+            <tr>
+                <th> Имя </th>
+                <td> {{ kassir["name"] }}</td>
+            </tr>
+            <tr>
+                <th> Ранг </th>
+                <td> {{ kassir["stage"] }}</td>
+            </tr>
+            <tr>
+                <th> Стаж </th>
+                <td> {{ kassir["year"] }}</td>
+            </tr>
+            </table>
+        {% endif %}
+    </form>
+{% endblock %}

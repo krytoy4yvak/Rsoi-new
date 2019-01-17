@@ -13,6 +13,8 @@ class Config(object):
 
     USER_SERVICE_PATH = "/users"
 
+    GET_TOKEN_URL_PATH = "/auth/token"
+
     PORT = 5000
     GATEWAY_URL = "http://127.0.0.1:5000"
     KASSIR_SERVICE_URL = "http://127.0.0.1:5001"

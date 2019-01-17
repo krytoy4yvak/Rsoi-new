@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Информация о товарах{% endblock %}
+{% block body %}
+    <form action="" method="get">
+            {% for item in prods %}
+                <table>
+                <tr>
+                    <th> Идентификатор товара </th>
+                    <td> {{ item["prod_id"] }}</td>
+                </tr>
+                <tr>
+                    <th> Идентификатор магазина </th>
+                    <td> {{ item["mag_id"] }}</td>
+                </tr>
+                <tr>
+                    <th> Номер ячейки</th>
+                    <td> {{ item["seat_number"] }}</td>
+                </tr>
+                </table>
+            {% endfor %}
+            <p></p>
+            {% if prev_url %}
+                <a href="{{ url_for('prods.get_all', page=prev_page) }}">Предыдущие товары</a>
+            {% endif %}
+            {% if next_url %}
+                <a href="{{ url_for('prods.get_all', page=next_page) }}" >Следующие товары</a>
+            {% endif %}
+    </form>
+{% endblock %}

@@ -10,23 +10,23 @@ db = MongoAlchemy(app)
 class Mags(db.Document):
     kassir_id = db.ObjectIdField()
     date_time = db.StringField()
-    col = db.StringField()
+    seats = db.StringField()
 
 
 class MagRepository:
-    def create(self, kassir_id, date_time, number_of_col):
-        col = []
-        for i in range(number_of_col):
-            col.append(True)
-        mag = Mags(kassir_id=kassir_id, date_time=date_time, col=jsonpickle.encode(col))
+    def create(self, kassir_id, date_time, number_of_seats):
+        seats = []
+        for i in range(number_of_seats):
+            seats.append(True)
+        mag = Mags(kassir_id=kassir_id, date_time=date_time, seats=jsonpickle.encode(seats))
         mag.save()
         return mag.mongo_id
 
     def get(self, mag_id):
         if self.exists(mag_id):
             mag = Mags.query.get(mag_id)
-            col = jsonpickle.decode(mag.col)
-            return Mag(mag_id=mag.mongo_id, kassir_id=mag.kassir_id, date_time=mag.date_time, col=col)
+            seats = jsonpickle.decode(mag.seats)
+            return Mag(mag_id=mag.mongo_id, kassir_id=mag.kassir_id, date_time=mag.date_time, seats=seats)
         else:
             return None
 
@@ -34,23 +34,25 @@ class MagRepository:
         mags = []
         mags_paginated = Mags.query.paginate(page=page_number, per_page=page_size)
         for mag in mags_paginated.items:
-            col = jsonpickle.decode(mag.col)
+            seats = jsonpickle.decode(mag.seats)
             mags.append(Mag(mag_id=mag.mongo_id, kassir_id=mag.kassir_id, date_time=mag.date_time,
-                                  col=col))
-        return mags
+                                  seats=seats))
+        is_prev_num = (mags_paginated.prev_num > 0)
+        is_next_num = (mags_paginated.next_num <= mags_paginated.pages)
+        return mags, is_prev_num, is_next_num
 
     def delete(self, mag_id):
         if self.exists(mag_id):
             mag = Mags.query.get(mag_id)
             mag.remove()
 
-    def get_a_seat(self, mag_id, prod_col):
+    def get_a_seat(self, mag_id, cell):
         if self.exists(mag_id):
             mag = Mags.query.get(mag_id)
-            col = jsonpickle.decode(mag.col)
-            if (len(col) >= prod_col) and (prod_col > 0) and (col[prod_col-1] == True):
-                col[prod_col-1] = False
-                mag.col = jsonpickle.encode(col)
+            seats = jsonpickle.decode(mag.seats)
+            if (len(seats) >= cell) and (cell > 0) and (seats[cell-1] == True):
+                seats[cell-1] = False
+                mag.seats = jsonpickle.encode(seats)
                 mag.save()
                 return True
             else:
@@ -58,13 +60,13 @@ class MagRepository:
         else:
             return None
 
-    def free_a_seat(self, mag_id, prod_col):
+    def free_a_seat(self, mag_id, cell):
         if self.exists(mag_id):
             mag = Mags.query.get(mag_id)
-            col = jsonpickle.decode(mag.col)
-            if (len(col) >= prod_col) and (prod_col > 0) and (col[prod_col - 1] == False):
-                col[prod_col-1] = True
-                mag.col = jsonpickle.encode(col)
+            seats = jsonpickle.decode(mag.seats)
+            if (len(seats) >= cell) and (cell > 0) and (seats[cell - 1] == False):
+                seats[cell-1] = True
+                mag.seats = jsonpickle.encode(seats)
                 mag.save()
                 return True
             else:

@@ -1,0 +1,6 @@
+{% extends "layout.html" %}
+{% block body %}
+<title>{% block title %}Магазины{% endblock %}</title>
+    <p class=nav>
+    <a href="{{ url_for('mags.get_all') }}">Посмотреть список всех магазинов</a>
+{% endblock %}

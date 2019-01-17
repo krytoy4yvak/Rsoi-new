@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block body %}
+<title>{% block title %}Кассиры{% endblock %}</title>
+    <p class=nav>
+    <a href="{{ url_for('kassirs.create') }}">Добавить нового кассира</a>
+    <p class=nav>
+    <a href="{{ url_for('kassirs.get') }}">Посмотреть подробную информацию о кассире</a>
+    <p class=nav>
+    <a href="{{ url_for('kassirs.get_all') }}">Посмотреть список всех кассиров</a>
+{% endblock %}

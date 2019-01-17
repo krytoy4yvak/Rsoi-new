@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %}Информация о кассирах{% endblock %}
+{% block body %}
+    <form action="" method="get">
+            {% for item in users %}
+                <table>
+                <tr>
+                    <th> Идентификатор пользователя </th>
+                    <td> {{ item["user_id"] }}</td>
+                </tr>
+                <tr>
+                    <th> Имя пользователя </th>
+                    <td> {{ item["name"] }}</td>
+                </tr>
+                <tr>
+                    <th> Иднтификаторы товара(ов) </th>
+                    <td> {{ item["prod_ids"] }}</td>
+                </tr>
+                </table>
+                <a href="{{ url_for('users.get', user_id=item["user_id"]) }}">Выбрать пользователя</a>
+            {% endfor %}
+            <p></p>
+            {% if prev_url %}
+                <a href="{{ url_for('prods.get_all', page=prev_page) }}">Предыдущие пользователи</a>
+            {% endif %}
+            {% if next_url %}
+                <a href="{{ url_for('prods.get_all', page=next_page) }}" >Следующие пользователи</a>
+            {% endif %}
+    </form>
+{% endblock %}

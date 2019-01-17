@@ -8,19 +8,19 @@ db = MongoAlchemy(app)
 
 class Prods(db.Document):
     mag_id = db.StringField()
-    prod_col = db.IntField()
+    cell = db.IntField()
 
 
 class ProdRepository:
-    def create(self, mag_id, prod_col):
-        prod = Prods(mag_id=mag_id, prod_col=prod_col)
+    def create(self, mag_id, cell):
+        prod = Prods(mag_id=mag_id, cell=cell)
         prod.save()
         return prod.mongo_id
 
     def get(self, prod_id):
         if self.exists(prod_id):
             prod = Prods.query.get(prod_id)
-            return Prod(prod_id=prod.mongo_id, mag_id=prod.mag_id, prod_col=prod.prod_col)
+            return Prod(prod_id=prod.mongo_id, mag_id=prod.mag_id, cell=prod.cell)
         else:
             return None
 
@@ -29,8 +29,10 @@ class ProdRepository:
         prods_paged = Prods.query.paginate(page=page_number, per_page=page_size)
         for prod in prods_paged.items:
             prods.append(Prod(prod_id=prod.mongo_id, mag_id=prod.mag_id,
-                                  prod_col=prod.prod_col))
-        return prods
+                                  cell=prod.cell))
+        is_prev_num = (prods_paged.prev_num > 0)
+        is_next_num = (prods_paged.next_num <= prods_paged.pages)
+        return prods, is_prev_num, is_next_num
 
     def delete(self, prod_id):
         if self.exists(prod_id):

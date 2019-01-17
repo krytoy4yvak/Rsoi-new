@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block title %}Информация о магазине{% endblock %}
+{% block body %}
+    <form action="" method="post">
+    <h3>Товар</h3>
+            <table>
+            <tr>
+                <th> Идентификатор </th>
+                <td> {{ kassir["kassir_id"] }}</td>
+            </tr>
+            <tr>
+                <th> Имя </th>
+                <td> {{ kassir["name"] }}</td>
+            </tr>
+            <tr>
+                <th> Ранг </th>
+                <td> {{ kassir["stage"] }}</td>
+            </tr>
+            <tr>
+                <th> Стаж </th>
+                <td> {{ kassir["year"] }}</td>
+            </tr>
+            </table>
+    <h3>Витрина</h3>
+            <table>
+            <tr>
+                <th> Идентификатор </th>
+                <td> {{ mag["mag_id"] }}</td>
+            </tr>
+            <tr>
+                <th> Дата </th>
+                <td> {{ datetime["date"] }}</td>
+            </tr>
+            <tr>
+                <th> Время </th>
+                <td> {{ datetime["time"] }}</td>
+            </tr>
+            </table>
+            <h3>Места</h3>
+                {% for i in range(number_of_seats) %}
+                    {% if i>0 %}
+                        {% if seats[i-1] %}
+                            <a style="text-decoration-color: #00FF00" href="{{ url_for('prods.buy', seat_number=i, mag_id=mag["mag_id"]) }}">{{ i }}</a>
+                        {% endif %}
+                        {% if not seats[i-1] %}
+                        <a>{{ i }}</a>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+    </form>
+{% endblock %}

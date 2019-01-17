@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}Добавить кассира{% endblock %}
+{% block body %}
+  <form action="" method=post>
+    <p>
+      <input type=text placeholder="Имя" name=name value="{{ request.form.name }}">
+    <p>
+      <input type=text placeholder="Ранг" name=stage value="{{ request.form.stage }}">
+    <p>
+      <input type=text placeholder="Стаж" name=year value="{{ request.form.year }}">
+
+      <p>
+      <input type=submit value=Ok>
+    <p>
+  </form>
+{% endblock %}
